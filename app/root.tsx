@@ -12,8 +12,8 @@ export function meta() {
 
   return {
     description,
-    keywords
-  }
+    keywords,
+  };
 }
 
 export default function App() {
@@ -30,6 +30,18 @@ type iDocType = {
   children: React.ReactNode;
   title?: string;
 };
+
+export function ErrorBoundry({ error }: any) {
+  console.log(error);
+  return (
+    <Document>
+      <Layout>
+        <h1>Sorry An Error Occured</h1>
+        <pre>{error}</pre>
+      </Layout>
+    </Document>
+  );
+}
 
 function Document({ children, title }: iDocType) {
   return (

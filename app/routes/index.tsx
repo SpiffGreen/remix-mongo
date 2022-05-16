@@ -1,9 +1,16 @@
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, Form } from "@remix-run/react";
+import { ActionFunction, redirect } from "@remix-run/node";
 
 type iTodo = {
   id: number,
   title: string,
   done: boolean
+}
+
+export const action: ActionFunction = async ({ request }) => {
+  const form = await request.formData();
+  console.log(form);
+  // return redirect("/");
 }
 
 export const loader = () => {
@@ -17,6 +24,16 @@ export const loader = () => {
     ]
   }
   return data;
+}
+
+export function ErrorBoundry({ error }: any) {
+  console.log(error);
+  return (
+    <div>
+      <h1>Sorry An Error Occured</h1>
+    <pre>{error}</pre>
+    </div>
+  );
 }
 
 const Todo: React.FC<iTodo> = props => {
@@ -36,10 +53,10 @@ export default function Index() {
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
       <div className="container mx-auto py-4 px-2">
         <h1 className="text-center text-xl">Welcome to Remix</h1>
-        <form method="POST" className="max-w-[500px] mx-auto">
+        <Form method="post" className="max-w-[500px] mx-auto">
           <input type="text" name="todo" id="newtodo" placeholder="Enter new todo..." className="w-[100%] p-2 mt-3 block rounded outline-none border border-zinc-400" />
           <button type="submit" className="bg-black text-white block lg:w-fit w-full mx-auto my-2 rounded py-1.5 px-4">Add</button>
-        </form>
+        </Form>
         <div className="bg-zinc-300 mt-3 mx-auto max-w-[450px] rounded-lg">
           {todos.map((todo: iTodo) => <Todo {...todo} />)}
         </div>
