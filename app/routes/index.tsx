@@ -1,33 +1,22 @@
-import { useLoaderData, Form } from "@remix-run/react";
-import { ActionFunction, redirect } from "@remix-run/node";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
-
-type iTodo = {
-  id: number;
-  title: string;
-  done: boolean;
+import { Form } from "@remix-run/react"; 
+import { ActionFunction, redirect, LoaderFunction } from "@remix-run/node";
+import { requireUserId, getUser } from "~/utils/auth.server";
+interface iTodo {
+  id: number,
+  title: string,
+  done: boolean,
 };
 
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
-  const todoTitle = await form.get("todo");
-  await prisma.$connect();
-  const todo = await prisma.todo.create({
-    data: {
-      title: todoTitle?.toString() || "",
-    },
-  });
-  prisma.$disconnect();
+  const todoTitle = form.get("todo");
+  console.log(todoTitle);
   return redirect("/");
 };
 
-export const loader = async () => {
-  await prisma.$connect();
-  const todos = await prisma.todo.findMany();
-  prisma.$disconnect();
-  return todos;
+export const loader: LoaderFunction = async ({ request }) => {
+  const userId = await requireUserId(request);
+  return userId;
 };
 
 export function ErrorBoundry({ error }: any) {
@@ -50,7 +39,7 @@ const Todo: React.FC<iTodo> = (props) => {
 };
 
 export default function Index() {
-  const todos = useLoaderData();
+  // const todos = useLoaderData();
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
       <div className="container mx-auto py-4 px-2">
@@ -71,9 +60,9 @@ export default function Index() {
           </button>
         </Form>
         <div className="bg-zinc-300 mt-3 mx-auto max-w-[450px] rounded-lg">
-          {todos.map((todo: iTodo) => (
+          {/* {todos.map((todo: iTodo) => (
             <Todo {...todo} key={todo.id} />
-          ))}
+          ))} */}
         </div>
       </div>
     </div>
