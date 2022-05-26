@@ -1,53 +1,21 @@
-# Welcome to Remix!
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/TerribleDev/remix-heroku)
 
-- [Remix Docs](https://remix.run/docs)
+# Remix stack for heroku
 
-## Development
+This is a very simple remix stack built for heroku. This includes:
 
-From your terminal:
+* Postgres Sql for a datastore
+* Prism ORM for database queries
 
-```sh
-npm run dev
-```
+## How to use this?
 
-This starts your app in development mode, rebuilding assets on file changes.
+run `npx create-remix@latest --template terribledev/remix-heroku`
 
-## Deployment
+Either provision a new heroku app with a postgres database or use the `deploy to heroku button` to setup your app.
 
-First, build your app for production:
 
-```sh
-npm run build
-```
+## Developing
 
-Then run the app in production mode:
+You can use `docker-compose up -d` to boot postgres locally, and the connection strings you need are in `.env`.
 
-```sh
-npm start
-```
-
-Now you'll need to pick a host to deploy it to.
-
-### DIY
-
-If you're familiar with deploying node applications, the built-in Remix app server is production-ready.
-
-Make sure to deploy the output of `remix build`
-
-- `build/`
-- `public/build/`
-
-### Using a Template
-
-When you ran `npx create-remix@latest` there were a few choices for hosting. You can run that again to create a new project, then copy over your `app/` folder to the new project that's pre-configured for your target server.
-
-```sh
-cd ..
-# create a new project, and pick a pre-configured host
-npx create-remix@latest
-cd my-new-remix-app
-# remove the new project's app (not the old one!)
-rm -rf app
-# copy your app over
-cp -R ../my-old-remix-app/app app
-```
+You should make an `.env.development` file to store all your local environment settings to keep out of git
