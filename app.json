@@ -1,0 +1,28 @@
+{
+  "name": "remix-mongodb-heroku",
+  "description": "A preconfigured custom remix-stack with mongodb, heroku setup, tailwind, cypress and elint/prettier",
+  "keywords": [
+      "react",
+      "remix",
+      "mongodb"
+
+  ],
+  "website": "https://github.com/spiffgreen/remix-mongo",
+  "repository": "https://github.com/spiffgreen/remix-mongo.git",
+  "success_url": "/",
+  "scripts": {},
+  "formation": {
+      "web": {
+          "quantity": 1,
+          "size": "free"
+      }
+  },
+  "addons": [
+      "mongolab:sandbox"
+  ],
+  "buildpacks": [
+      {
+          "url": "heroku/nodejs"
+      }
+  ]
+}
