@@ -3,9 +3,16 @@
 # Remix stack for heroku
 
 This is a very simple remix stack built for heroku. This includes:
-
-* MongoDB for a datastore
-* Prism ORM for database queries
+- heroku deployment with Git
+- Production-ready MongoDB Database
+- GitHub Actions for deploy on merge to production and staging environments
+- Email/Password Authentication with cookie-based sessions
+- Database ORM with Prisma
+- Styling with Tailwind
+- End-to-end testing with Cypress
+- Code formatting with Prettier
+- Linting with ESLint
+- Static Types with TypeScript
 
 ## How to use this?
 
@@ -16,6 +23,6 @@ Either provision a new heroku app with a mongodb database or use the `deploy to 
 
 ## Developing
 
-You can use `docker-compose up -d` to boot mongodb locally, and the connection strings you need are in `.env`.
+You can simply run `npm run dev` to start the development server. Of course, you'll have to install the dependencies before use `npm install`.
 
 You should make an `.env.development` file to store all your local environment settings to keep out of git
